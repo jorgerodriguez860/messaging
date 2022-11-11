@@ -1,17 +1,44 @@
+// -------------------------
+// Vanilla React
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// -------------------------
+// Added functionality
+// ------------
+// to route
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// ------------
+// to use redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers/reducer';
+// -------------------------
+// Major components
+import BaseLayout from './components/layout/BaseLayout';
+import Home from './components/links/Home';
+import Login from './components/links/Login';
+import Register from './components/links/Register';
+import Chat from './components/links/Chat';
+// -------------------------
+// Styling
+import './css/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createStore(reducer)
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <Router>
+        <BaseLayout>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/chat' element={<Chat />} />
+          </Routes>
+        </BaseLayout>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
