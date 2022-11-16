@@ -8,8 +8,8 @@ export default function GenericNavbar() {
             <h3>*this is generic navbar</h3>
             <ul className="categories">
                 <a href="/searchevents">Search Events</a>
-                <a href="/login">Login</a>
-                <a href="/Register">Register</a>
+                <a href="/signin">Sign In</a>
+                <a href="/signup">Sign Up</a>
             </ul>
         </nav>
     </>
