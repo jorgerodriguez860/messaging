@@ -1,0 +1,36 @@
+
+.events-container{
+    max-width: 450px;
+}
+.events-title{
+    display: flex;
+    justify-content:center;
+}
+.card-container{
+    box-shadow: 5px 5px 20px rgb(197, 195, 195);
+    margin: 5px;
+}
+.sub-text-description{
+    display: flex; 
+    margin: 10px;
+    flex-wrap: wrap;
+    width: fit-content;
+    font-size: medium;
+}
+
+.card-title-and-delete{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+    justify-content:center;
+    align-items: center;
+    justify-content: space-around;
+}
+.sub-text-container{
+    display: flex;
+    justify-content: space-between;
+}
+.sub-text-title{
+    font-size:large;
+    font-weight:bolder;
+}
