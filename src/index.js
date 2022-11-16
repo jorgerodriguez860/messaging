@@ -11,10 +11,10 @@ import { BrowserRouter } from 'react-router-dom';
 // to use redux
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './reducers/reducer'
+import reducer from './redux/reducers/reducer'
 // -------------------------
 // Major components
-import App from './App';
+import App from './components/layout/App';
 // -------------------------
 // Styling
 import "./css/Navbar.css"
@@ -25,7 +25,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-    <App />
+      <App />
     </BrowserRouter>
   </Provider>
 );
