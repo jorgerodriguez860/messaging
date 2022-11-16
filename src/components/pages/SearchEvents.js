@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Popup, Marker } from 'react-map-gl';
+import { useNavigate } from 'react-router-dom'
 import mapPin from '../../images/mappin.png'
 import Button from '@mui/material/Button';
 
-import MapSearch from '../childComponents/MapSearch'
-import MoreInfoDialog from '../childComponents/MoreInfoDialog';
-import EventsList from '../childComponents/EventsList';
+import MapSearch from '../childcomponents/MapSearch'
+import MoreInfoDialog from '../childcomponents/MoreInfoDialog';
+import EventsList from '../childcomponents/EventsList';
 import '../../css/SearchEvents.css'
 
 let coordinates = {
@@ -21,6 +22,18 @@ function SearchEvents() {
   const [city, setCity] = useState('Nashville');
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('signedIn') !== 'true' || localStorage.getItem('username') === null || localStorage.getItem('host') === null) {
+      navigate('/signin')
+    } 
+
+  }, [])
+  
+
+  console.log('localStorage: ',localStorage.getItem('signedIn'))
+
   const openPopUp = (e, eventObj) => {
     e.originalEvent.stopPropagation();
     setSelectedMarker(eventObj)
@@ -31,62 +44,72 @@ function SearchEvents() {
     setOpen(true);
   };
 
-  return (
-
-    <>
-      <MapSearch setEventsList={setEventsList} city={city} setCity={setCity} />
-
-      <MoreInfoDialog open={open} selectedMarker={selectedMarker} setOpen={setOpen}/>
-
-      <div className='mapListFlex'>
-        <div>
-          <Map
-            reuseMaps={true}
-            initialViewState={{
-              longitude: -86.7816016,
-              latitude: 36.1626638,
-              zoom: 0
-            }}
-            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            style={{width: 600, height: 600}}
-            mapStyle="mapbox://styles/mapbox/streets-v9"
-            maxBounds={coordinates[city]}>
-
-
-              {eventsList.map((eventObj) => {
-                    return (
-                      <Marker key={eventObj.event_id} longitude={eventObj.longitude} latitude={eventObj.latitude} anchor="bottom" onClick={(e) => openPopUp(e, eventObj)}>
-                          <img src={mapPin} height='30px'/>
-                      </Marker>
-                    ) 
-                  })}
-
-              {showPopup && 
-                (<Popup 
-                  focusAfterOpen={true}
-                  longitude={selectedMarker.longitude}
-                  latitude={selectedMarker.latitude}
-                  onClose={() => setShowPopup(false)}>
-                  <h3>Title: {selectedMarker.title}</h3>
-
-                  <h5>Date: {selectedMarker.month-1}-{selectedMarker.day}-{selectedMarker.year}</h5>
-                  <h5>Time: {selectedMarker.hour}:{selectedMarker.minute}</h5>
-                  <p>Host: {selectedMarker.user_id}</p>
-                  <Button variant='contained' onClick={handleClickOpen}>More Info</Button>
-                  <Button variant='contained' color='error' >Add Event</Button>
-
-              </Popup>)}
-              
-          </Map>
-        </div>
-        <div>
-          <EventsList eventsList={eventsList} setSelectedMarker={setSelectedMarker} setShowPopup={setShowPopup} />
-        </div>
-        
-      </div>
-    </>
+  const handleAddEvent = () => {
     
-  )
+  }
+
+  if(localStorage.getItem('signedIn') === 'true'){
+
+    return (
+
+      <>
+        <MapSearch setEventsList={setEventsList} city={city} setCity={setCity} />
+
+        <MoreInfoDialog open={open} selectedMarker={selectedMarker} setOpen={setOpen}/>
+
+        <div className='mapListFlex'>
+          <div>
+            <Map
+              reuseMaps={true}
+              initialViewState={{
+                longitude: -86.7816016,
+                latitude: 36.1626638,
+                zoom: 0
+              }}
+              mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              style={{width: 600, height: 600}}
+              mapStyle="mapbox://styles/mapbox/streets-v9"
+              maxBounds={coordinates[city]}>
+
+
+                {eventsList.map((eventObj) => {
+                      return (
+                        <Marker key={eventObj.event_id} longitude={eventObj.longitude} latitude={eventObj.latitude} anchor="bottom" onClick={(e) => openPopUp(e, eventObj)}>
+                            <img src={mapPin} height='30px'/>
+                        </Marker>
+                      ) 
+                    })}
+
+                {showPopup && 
+                  (<Popup 
+                    focusAfterOpen={true}
+                    longitude={selectedMarker.longitude}
+                    latitude={selectedMarker.latitude}
+                    onClose={() => setShowPopup(false)}>
+                    <h3>Title: {selectedMarker.title}</h3>
+
+                    <h5>Date: {selectedMarker.month-1}-{selectedMarker.day}-{selectedMarker.year}</h5>
+                    <h5>Time: {selectedMarker.hour}:{selectedMarker.minute}</h5>
+                    <p>Host: {selectedMarker.user_id}</p>
+                    <Button variant='contained' onClick={handleClickOpen}>More Info</Button>
+                    <Button variant='contained' color='error' onClick={handleAddEvent} >Add Event</Button>
+
+                </Popup>)}
+                
+            </Map>
+          </div>
+          <div>
+            <EventsList eventsList={eventsList} setSelectedMarker={setSelectedMarker} setShowPopup={setShowPopup} />
+          </div>
+          
+        </div>
+      </>
+      
+    )
+  }
+  else {
+    
+  }
 }
 
 export default SearchEvents;
