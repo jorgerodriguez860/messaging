@@ -26,6 +26,7 @@ function MapSearch({setEventsList, city, setCity}) {
         .then((response) => response.json())
         .then((data) => {
             setEventsList(data)
+            console.log(data)
         })
     }
 
