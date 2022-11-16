@@ -37,7 +37,7 @@ export default function SignIn() {
     .then((data) => {
       console.log(data);
 
-      if(data.signedIn === true) {
+      if(data.signedIn === 'true') {
         localStorage.setItem('username', data.username)
         localStorage.setItem('host', data.host)
         localStorage.setItem('signedIn', data.signedIn)

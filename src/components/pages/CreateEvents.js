@@ -41,7 +41,8 @@ export default function CreateEvent() {
 
   }, [])
   
-
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [marker, setMarker] = useState({lat: 33.766452, lng: -84.397659});
   const [eventType, setEventType] = useState('Party');
   const [date, setDate] = useState(dayjs(new Date().toJSON()));
@@ -65,8 +66,34 @@ export default function CreateEvent() {
 
   };
 
-  const createEvent = (e) => {
+  const createEvent = async (e) => {
     e.preventDefault()
+
+    if(title.length==0 || description.length==0){
+      alert('Fill out every form!')
+    }
+    else {
+      await fetch('/createevent', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({year: date.$y, month: date.$M+1, day: date.$D, hour: date.$H, minute: date.$m, type: eventType, title: title, description: description, city: city, latitude: marker.lat, longitude: marker.lng, user_id: localStorage.getItem('username')})
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data: ',data);
+  
+        if(data.created == true) {
+          alert("Event Created")
+          navigate('/searchevents')
+        }
+  
+      })
+    }
+
+    
   }
   
   if(localStorage.getItem('signedIn') !== true || localStorage.getItem('host') === false){
@@ -81,6 +108,8 @@ export default function CreateEvent() {
               <TextField
                 id="outlined-required"
                 label="Event Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 style={{width : 260}}
               />
           </div>
@@ -102,7 +131,7 @@ export default function CreateEvent() {
           <div className='inputItem'>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                <InputLabel id="demo-simple-select-label">Event Type</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -136,6 +165,16 @@ export default function CreateEvent() {
               </FormControl>
             </Box>
           </div>
+        </div>
+
+        <div className='inputDescription'>
+              <TextField
+                id="outlined-required"
+                label="Event Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                style={{width : 260}}
+              />
         </div>
 
         <h3>Drag the pin to set the event location</h3>

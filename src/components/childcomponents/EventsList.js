@@ -49,8 +49,8 @@ function EventsList({eventsList, setSelectedMarker, setShowPopup}) {
           <DataGrid
             rows={events}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={9}
+            rowsPerPageOptions={[9]}
           />
         </div>
     );

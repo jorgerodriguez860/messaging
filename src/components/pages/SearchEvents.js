@@ -74,7 +74,7 @@ function SearchEvents() {
 
                 {eventsList.map((eventObj) => {
                       return (
-                        <Marker key={eventObj.event_id} longitude={eventObj.longitude} latitude={eventObj.latitude} anchor="bottom" onClick={(e) => openPopUp(e, eventObj)}>
+                        <Marker key={eventObj.id} longitude={eventObj.longitude} latitude={eventObj.latitude} anchor="bottom" onClick={(e) => openPopUp(e, eventObj)}>
                             <img src={mapPin} height='30px'/>
                         </Marker>
                       ) 
