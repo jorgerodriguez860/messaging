@@ -1,0 +1,15 @@
+.inputGrid {
+    display: grid;
+    grid-template-columns: 300px 300px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.inputItem {
+    margin: 20px;
+    /* width: 100%; */
+}
+
+.submitButtonContainer {
+    margin-top: 20px;
+}

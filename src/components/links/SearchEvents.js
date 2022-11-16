@@ -19,7 +19,7 @@ function SearchEvents() {
   const [selectedMarker, setSelectedMarker] = useState({})
   const [eventsList, setEventsList] = useState([])
   const [city, setCity] = useState('Nashville');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const openPopUp = (e, eventObj) => {
     e.originalEvent.stopPropagation();
