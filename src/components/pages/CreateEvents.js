@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Map, { Popup, Marker } from 'react-map-gl';
 import mapPin from '../../images/mappin.png'
 import TextField from '@mui/material/TextField'
@@ -31,12 +32,20 @@ let markerCoordinates = {
 
 export default function CreateEvent() {
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('signedIn') !== 'true' || localStorage.getItem('host') === 'false' || localStorage.getItem('username') === null) {
+      navigate('/signin')
+    } 
+
+  }, [])
+  
+
   const [marker, setMarker] = useState({lat: 33.766452, lng: -84.397659});
   const [eventType, setEventType] = useState('Party');
   const [date, setDate] = useState(dayjs(new Date().toJSON()));
   const [city, setCity] = useState('Atlanta');
-
-
 
   const handleEventTypeChange = (e) => {
     setEventType(e.target.value);
@@ -60,94 +69,97 @@ export default function CreateEvent() {
     e.preventDefault()
   }
   
-  return (
-    <>
-      <h2>Create Event</h2>
-      <div className='inputGrid'>
+  if(localStorage.getItem('signedIn') !== true || localStorage.getItem('host') === false){
+
+    return (
+      <>
+        <h2>Create Event</h2>
+        <div className='inputGrid'>
+          
         
-      
-        <div className='inputItem'>
-            <TextField
-              id="outlined-required"
-              label="Event Title"
-              style={{width : 260}}
-            />
-        </div>
-
-        <div className='inputItem'>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-
-              <DateTimePicker
-                label="Date&Time picker"
-                value={date}
-                onChange={handleDateChange}
-                renderInput={(params) => <TextField {...params} />}
+          <div className='inputItem'>
+              <TextField
+                id="outlined-required"
+                label="Event Title"
+                style={{width : 260}}
               />
-            </Stack>
-          </LocalizationProvider>
+          </div>
+
+          <div className='inputItem'>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Stack spacing={3}>
+
+                <DateTimePicker
+                  label="Date&Time picker"
+                  value={date}
+                  onChange={handleDateChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </Stack>
+            </LocalizationProvider>
+          </div>
+
+          <div className='inputItem'>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={eventType}
+                  label="Event Type"
+                  onChange={handleEventTypeChange}
+                >
+                  <MenuItem value='Party'>Party</MenuItem>
+                  <MenuItem value='Celebration'>Celebration</MenuItem>
+                  <MenuItem value='Relaxation'>Relaxation</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </div>
+
+          <div className='inputItem'>
+            <Box sx={{ minWidth: 120 }}>  
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">City</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  label="Event Type"
+                  onChange={handleCityChange}
+                >
+                  <MenuItem value='Atlanta'>Atlanta, GA</MenuItem>
+                  <MenuItem value='Richmond'>Richmond, VA</MenuItem>
+                  <MenuItem value='Nashville'>Nashville, TN</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </div>
         </div>
 
-        <div className='inputItem'>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Type</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={eventType}
-                label="Event Type"
-                onChange={handleEventTypeChange}
-              >
-                <MenuItem value='Party'>Party</MenuItem>
-                <MenuItem value='Celebration'>Celebration</MenuItem>
-                <MenuItem value='Relaxation'>Relaxation</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+        <h3>Drag the pin to set the event location</h3>
+        <Map
+          reuseMaps={true}
+          initialViewState={{
+            longitude: -86.7816016,
+            latitude: 36.1626638,
+            zoom: 0
+          }}
+          mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+          style={{width: 800, height: 600}}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          maxBounds={coordinates[city]}
+          >
+
+            <Marker draggable={true} longitude={marker.lng} latitude={marker.lat} anchor="bottom" onDragEnd={(e) => dragEnd(e)}>
+                <img src={mapPin} height='30px'/>
+            </Marker>
+        </Map>
+        <div className='submitButtonContainer'>
+          <Button variant="contained" type='submit' onClick={createEvent}>Submit</Button>
         </div>
-
-        <div className='inputItem'>
-          <Box sx={{ minWidth: 120 }}>  
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Event Type"
-                onChange={handleCityChange}
-              >
-                <MenuItem value='Atlanta'>Atlanta, GA</MenuItem>
-                <MenuItem value='Richmond'>Richmond, VA</MenuItem>
-                <MenuItem value='Nashville'>Nashville, TN</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </div>
-      </div>
-
-      <h3>Drag the pin to set the event location</h3>
-      <Map
-        reuseMaps={true}
-        initialViewState={{
-          longitude: -86.7816016,
-          latitude: 36.1626638,
-          zoom: 0
-        }}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        style={{width: 800, height: 600}}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        maxBounds={coordinates[city]}
-        >
-
-          <Marker draggable={true} longitude={marker.lng} latitude={marker.lat} anchor="bottom" onDragEnd={(e) => dragEnd(e)}>
-              <img src={mapPin} height='30px'/>
-          </Marker>
-      </Map>
-      <div className='submitButtonContainer'>
-        <Button variant="contained" type='submit' onClick={createEvent}>Submit</Button>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
