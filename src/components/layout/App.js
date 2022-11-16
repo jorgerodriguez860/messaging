@@ -16,7 +16,6 @@ import EventsICreated from '../pages/EventsICreated';
 import SearchEvents from '../pages/SearchEvents';
 import MyEvents from '../pages/MyEvents';
 import MyProfile from '../pages/MyProfile';
-import Logout from '../pages/Logout';
 
 function App() {
   return (
@@ -35,7 +34,6 @@ function App() {
           <Route path='/searchevents' element={<SearchEvents />} />
           <Route path='/myevents' element={<MyEvents />} />
           <Route path='/myprofile' element={<MyProfile />} />
-          <Route path='/logout' element={<Logout />} />
         </Routes>
       </div>
     </>
