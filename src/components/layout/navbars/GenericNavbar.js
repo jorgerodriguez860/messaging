@@ -1,17 +1,20 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default function GenericNavbar() {
-    return ( 
+    return (
         <>
-        <nav className="nav">
-            <a href="/" className="site-title">Home</a>
-            <h3>*this is generic navbar</h3>
-            <ul className="categories">
-                <a href="/searchevents">Search Events</a>
-                <a href="/signin">Sign In</a>
-                <a href="/signup">Sign Up</a>
-            </ul>
-        </nav>
-    </>
+            <nav className="nav">
+                <NavLink to="/" className="site-title">Home</NavLink>
+
+                <h3>*this is generic navbar</h3>
+
+                <ul className="categories">
+                    <NavLink to="/searchevents">Search Events</NavLink>
+                    <NavLink to="/signin">Sign In</NavLink>
+                    <NavLink to="/signup">Sign Up</NavLink>
+                </ul>
+            </nav>
+        </>
     )
 }
