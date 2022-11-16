@@ -1,7 +1,7 @@
 // -------------------------
 // Vanilla React
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 // -------------------------
 // Added functionality
 // ------------
@@ -21,13 +21,11 @@ import "./css/Navbar.css"
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
-  </Provider>,
-  document.getElementById('root')
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+  </Provider>
 );
