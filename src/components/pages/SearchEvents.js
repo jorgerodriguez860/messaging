@@ -44,8 +44,31 @@ function SearchEvents() {
     setOpen(true);
   };
 
-  const handleAddEvent = () => {
-    
+  const handleAddEvent = async () => {
+        
+    await fetch('/addparticipant', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({event_id: String(selectedMarker.id), user_id: localStorage.getItem('username')})
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('data: ',data);
+
+      if(data.status == 'added') {
+        alert("Event Added")
+      }
+      else if(data.status == 'exists') {
+        alert("Event Already Added")
+      }
+      else if(data.status == 'not added') {
+        alert("Event Not Added")
+      }
+    })
+
   }
 
   if(localStorage.getItem('signedIn') === 'true'){

@@ -20,7 +20,10 @@ function MapSearch({setEventsList, city, setCity}) {
     //UseEffect Hook
     useEffect(() => {
 
-        const apiCall = async() => {
+
+      console.log(date)
+
+      const apiCall = async() => {
 
         await fetch(`/mapevents?city=${city}&year=${date.$y}&month=${date.$M+1}&day=${date.$D}`)
         .then((response) => response.json())
@@ -28,9 +31,14 @@ function MapSearch({setEventsList, city, setCity}) {
             setEventsList(data)
             console.log(data)
         })
-    }
+      }
 
-    apiCall()
+      if(date !== null) {
+        if(String(date.$y) !== 'NaN' && String(date.$M) !== 'NaN' && String(date.$D) !== 'NaN') {
+          apiCall()
+        }
+      }
+      
 
   }, [date, city])
 
