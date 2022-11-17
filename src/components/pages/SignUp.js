@@ -12,19 +12,73 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import { useState } from 'react';
+
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+
+  const [city, setCity] = useState('');
+  const [host, setHost] = useState(false) 
+
+  const handleChangeCity = (event) => {
+    setCity(event.target.value);
+  };
+
+  const handleChange = (e) => {
+    setHost(e.target.checked)
+  };
+
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+
     console.log({
-      email: data.get('email'),
+      Username: data.get('Username'),
       password: data.get('password'),
+      FirstName: data.get('firstName'),
+      LastName: data.get('lastName'),
+      city: data.get('City'),
+    })
+
+    if(city === null){
+      setCity('Atlanta ')
+    }
+    else{
+      await fetch('/createusers', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({host: host, username: data.get('Username'), password: data.get('password'), fname: data.get('firstName'), lname: data.get('lastName'), location: city})
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data: ',data);
+        if(data.created === true) {
+          alert("User Created")
+        }
+      })
+    }
+    console.log({
+      Username: data.get('Username'),
+      password: data.get('password'),
+      FirstName: data.get('firstName'),
+      LastName: data.get('lastName'),
+      city: data.get('City'),
     });
   };
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -63,25 +117,30 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* Modify the id, name, and autoComplete to relate to our project */}
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="City"
-                  name="email"
-                  autoComplete="email"
-                />
+                  <FormControl sx={{ m: 0, minWidth: 400 }}>
+                    <InputLabel id="demo-simple-select-helper-label">City</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      value={city}
+                      label="City"
+                      onChange={handleChangeCity}
+                    >
+                      <MenuItem value={'Atlanta'}>Atlanta </MenuItem>
+                      <MenuItem value={'Nashville'}>Nashville</MenuItem>
+                      <MenuItem value={'Richmond'}>Richmond</MenuItem>
+                    </Select>
+                  </FormControl>
               </Grid>
               <Grid item xs={12}>
                 {/* Modify the id, name, and autoComplete to relate to our project */}
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="Username"
                   label="Username"
-                  name="email"
-                  autoComplete="email"
+                  name="Username"
+                  autoComplete="Username"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,7 +157,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   // Modify the value to relate to our project
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox  value="host" onChange={(e)=>handleChange(e)}  color="primary" />}
                   label="I want to be a host and create events."
                 />
               </Grid>
@@ -122,5 +181,7 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
+
+    </>
   );
 }
