@@ -8,6 +8,9 @@ import MapSearch from '../childComponents/MapSearch'
 import MoreInfoDialog from '../childComponents/MoreInfoDialog';
 import EventsList from '../childComponents/EventsList';
 import '../../css/SearchEvents.css'
+import HostNavbar from '../layout/navbars/HostNavbar';
+import UserNavbar from '../layout/navbars/UserNavbar';
+
 
 let coordinates = {
   'Nashville': [[-86.917648, 36.011851], [-86.542364, 36.284438]],
@@ -21,18 +24,19 @@ function SearchEvents() {
   const [eventsList, setEventsList] = useState([])
   const [city, setCity] = useState('Nashville');
   const [open, setOpen] = useState(false);
+  
+
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('signedIn') !== 'true' || localStorage.getItem('username') === null || localStorage.getItem('host') === null) {
+    if(localStorage.getItem('eventsHubInfo') == null) {
       navigate('/signin')
-    } 
+    }
 
   }, [])
   
 
-  console.log('localStorage: ',localStorage.getItem('signedIn'))
 
   const openPopUp = (e, eventObj) => {
     e.originalEvent.stopPropagation();
@@ -52,7 +56,7 @@ function SearchEvents() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({event_id: String(selectedMarker.id), user_id: localStorage.getItem('username')})
+      body: JSON.stringify({event_id: String(selectedMarker.id), user_id: JSON.parse(localStorage.getItem('eventsHubInfo')).username})
     })
     .then((response) => response.json())
     .then((data) => {
@@ -71,11 +75,15 @@ function SearchEvents() {
 
   }
 
-  if(localStorage.getItem('signedIn') === 'true'){
+  if(localStorage.getItem('eventsHubInfo') != null){
 
     return (
 
       <>
+        {JSON.parse(localStorage.getItem('eventsHubInfo')).host
+        ? <HostNavbar />
+        : <UserNavbar />
+        }
         <MapSearch setEventsList={setEventsList} city={city} setCity={setCity} />
 
         <MoreInfoDialog open={open} selectedMarker={selectedMarker} setOpen={setOpen}/>
