@@ -54,9 +54,9 @@ export default function EventsICreated() {
     <>
       <div className='events-container'>
         <div className='events-title'><h1>Events I Created</h1></div>
-        {eventsList.map((eventObj) => {
+        {eventsList.map((eventObj, index) => {
           return (
-            <Card className='card-container' sx={{ minWidth: 275 }}>
+            <Card key={index} className='card-container' sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography className='card-title-and-delete' sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   <h1>{eventObj.title}</h1> <Button style={{width:'5px',height:'20px', color:'grey' }}color="inherit" variant="contained" onClick={() => deleteEventClick(eventObj.id)}>Delete</Button>
