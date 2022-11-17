@@ -3,9 +3,9 @@
 import { Route, Routes } from "react-router-dom";
 // -------------------------
 // Navbars
-import GenericNavbar from './navbars/GenericNavbar';
-// import HostNavbar from './navbars/HostNavbar';
-// import UserNavbar from "./navbars/UserNavbar";
+import PublicNavbar from './navbars/PublicNavbar';
+import HostNavbar from './navbars/HostNavbar';
+import UserNavbar from "./navbars/UserNavbar";
 // -------------------------
 // Major components
 import Home from "../pages/Home"
@@ -20,9 +20,9 @@ import MyProfile from '../pages/MyProfile';
 function App() {
   return (
     <>
-      <GenericNavbar />
-      {/* <HostNavbar /> */}
-      {/* <UserNavbar /> */}
+      <PublicNavbar />
+      <HostNavbar />
+      <UserNavbar />
 
       <div className="container">
         <Routes>
