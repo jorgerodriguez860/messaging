@@ -69,7 +69,7 @@ export default function CreateEvent() {
   const createEvent = async (e) => {
     e.preventDefault()
 
-    if(title.length==0 || description.length==0){
+    if(title.length==0 || description.length==0 || date == null || String(date.$D) == 'NaN'){
       alert('Fill out every form!')
     }
     else {
@@ -83,7 +83,7 @@ export default function CreateEvent() {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data: ',data);
+        // console.log('data: ',data);
   
         if(data.created == true) {
           alert("Event Created")
