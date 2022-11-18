@@ -1,14 +1,20 @@
 
 .events-container{
-    max-width: 450px;
+    width: 80%;
 }
 .events-title{
     display: flex;
     justify-content:center;
+    margin-top: 20px;
+
+    
 }
 .card-container{
-    box-shadow: 5px 5px 20px rgb(197, 195, 195);
+    box-shadow: 10px 10px 40px rgb(24, 23, 23);
     margin: 5px;
+    border: 2px solid black;
+    width: 30%;
+    min-width: 450px;
 }
 .sub-text-description{
     display: flex; 
@@ -16,6 +22,7 @@
     flex-wrap: wrap;
     width: fit-content;
     font-size: medium;
+    text-align:center;
 }
 
 .card-title-and-delete{
@@ -25,6 +32,16 @@
     justify-content:center;
     align-items: center;
     justify-content: space-around;
+
+    /* margin-bottom: 200px; */
+    height: 100px;
+    /* padding-bottom: 30px; */
+    /* background-color: blue; */
+    /* color: white; */
+}
+
+.title-text {
+    /* color: white; */
 }
 .sub-text-container{
     display: flex;
@@ -33,4 +50,77 @@
 .sub-text-title{
     font-size:large;
     font-weight:bolder;
+}
+
+.events-grid {
+    display: flex;
+    /* grid-template-columns: auto auto auto; */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media screen and (max-width: 941px) {
+    .events-container{
+        width: 80%;
+        /* background-color: red; */
+    }
+    .card-container{
+        box-shadow: 10px 10px 40px rgb(24, 23, 23);
+        margin: 5px;
+        width: 30%;
+        min-width: 300px;
+    }
+}
+
+@media screen and (min-width: 941px) and (max-width: 1136px) {
+    .events-container{
+        width: 80%;
+        /* background-color: blue; */
+    }
+    .card-container{
+        box-shadow: 10px 10px 40px rgb(24, 23, 23);
+        margin: 5px;
+        width: 30%;
+        min-width: 350px;
+    }
+}
+
+@media screen and (min-width: 1136px) and (max-width: 1383px) {
+    .events-container{
+        width: 80%;
+        /* background-color: yellow; */
+    }
+    .card-container{
+        box-shadow: 10px 10px 40px rgb(24, 23, 23);
+        margin: 5px;
+        width: 30%;
+        min-width: 430px;
+    }
+}
+
+@media screen and (min-width: 1383px) and (max-width: 1600px) {
+    .events-container{
+        width: 80%;
+        /* background-color: green; */
+    }
+    .card-container{
+        box-shadow: 10px 10px 40px rgb(24, 23, 23);
+        margin: 5px;
+        width: 30%;
+        min-width: 350px;
+    }
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1790px) {
+    .events-container{
+        width: 80%;
+        /* background-color: purple; */
+    }
+
+    .card-container{
+        box-shadow: 10px 10px 40px rgb(24, 23, 23);
+        margin: 5px;
+        width: 30%;
+        min-width: 400px;
+    }
 }

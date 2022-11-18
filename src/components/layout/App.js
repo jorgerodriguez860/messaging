@@ -16,6 +16,7 @@ import EventsICreated from '../pages/EventsICreated';
 import SearchEvents from '../pages/SearchEvents';
 import MyEvents from '../pages/MyEvents';
 import MyProfile from '../pages/MyProfile';
+import '../../css/App.css'
 
 function App() {
   return (
