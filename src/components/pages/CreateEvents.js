@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Map, { Popup, Marker } from 'react-map-gl';
+import Map, { Marker } from 'react-map-gl';
 import mapPin from '../../images/mappin.png'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import HostNavbar from '../layout/navbars/HostNavbar';
 
 import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
@@ -35,7 +36,7 @@ export default function CreateEvent() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('signedIn') !== 'true' || localStorage.getItem('host') === 'false' || localStorage.getItem('username') === null) {
+    if(localStorage.getItem('eventsHubInfo') === null || JSON.parse(localStorage.getItem('eventsHubInfo')).host === false) {
       navigate('/signin')
     } 
 
@@ -79,7 +80,7 @@ export default function CreateEvent() {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({year: date.$y, month: date.$M+1, day: date.$D, hour: date.$H, minute: date.$m, type: eventType, title: title, description: description, city: city, latitude: marker.lat, longitude: marker.lng, user_id: localStorage.getItem('username')})
+        body: JSON.stringify({year: date.$y, month: date.$M+1, day: date.$D, hour: date.$H, minute: date.$m, type: eventType, title: title, description: description, city: city, latitude: marker.lat, longitude: marker.lng, user_id: JSON.parse(localStorage.getItem('eventsHubInfo')).username})
       })
       .then((response) => response.json())
       .then((data) => {
@@ -96,10 +97,11 @@ export default function CreateEvent() {
     
   }
   
-  if(localStorage.getItem('signedIn') !== true || localStorage.getItem('host') === false){
+  if(localStorage.getItem('eventsHubInfo') !== null && JSON.parse(localStorage.getItem('eventsHubInfo')).host === true){
 
     return (
       <>
+        <HostNavbar />
         <h2>Create Event</h2>
         <div className='inputGrid'>
           

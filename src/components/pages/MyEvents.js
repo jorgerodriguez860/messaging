@@ -8,24 +8,28 @@ import Container from '@mui/material/Container';
 //////////////////
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 //import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import HostNavbar from '../layout/navbars/HostNavbar';
+import UserNavbar from '../layout/navbars/UserNavbar';
 //////
 
 export default function MyEvents() {
 
   const[eventsList, setEventsList] = useState([])
   const[deleteEvent, setDeleteEvent] = useState(1)
+  const navigate = useNavigate();
 
   useEffect(() => {
     
     const apiCall = async () => {
 
-      await fetch('/myevents?user_id=host1')
+      await fetch(`/myevents?user_id=${JSON.parse(localStorage.getItem('eventsHubInfo')).username}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -33,12 +37,18 @@ export default function MyEvents() {
       })
     }
 
-    apiCall()
+    if(localStorage.getItem('eventsHubInfo') === null) {
+      navigate('/signin')
+    }
+    else {
+      apiCall()
+    }
+    
 
   }, [deleteEvent])
 
   const deleteEventClick = async (event_id) => {
-    await fetch(`/deletejoinedevent/${event_id}/host1`, {
+    await fetch(`/deletejoinedevent/${event_id}/${JSON.parse(localStorage.getItem('eventsHubInfo')).username}`, {
       method: 'DELETE',
     })
     .then((response) => response.json())
@@ -48,43 +58,48 @@ export default function MyEvents() {
     setDeleteEvent(deleteEvent+1)
   }
   
-
-  return (
-    <>
-      <div className='events-container'>
-        <div className='events-title'><h1>My Events</h1></div>
-        {eventsList.map((eventObj, index) => {
-          return (
-            <Card key={index} className='card-container' sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography className='card-title-and-delete' sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  <h1>{eventObj.title}</h1> <Button style={{width:'5px',height:'20px', color:'grey' }}color="inherit" variant="contained" onClick={() => deleteEventClick(eventObj.id)}>Delete</Button>
-                </Typography>
-                <Typography variant="h5"  component="div">
-                <div className='sub-text-container'>
-                  <h5 className='sub-text-description' ><div className='sub-text-title'>What</div></h5>
-                  <p className='sub-text-description' > {eventObj.description}</p>
-                  </div>
-                </Typography>
-                <Typography variant="h5"  component="div">
-                <div className='sub-text-container'>
-                  <h5 className='sub-text-description' ><div className='sub-text-title'>Where</div></h5>
-                  <p className='sub-text-description' > {eventObj.latitude.toFixed(2)}, {eventObj.longitude.toFixed(2)}, {eventObj.city}</p>
-                  </div>
-                </Typography>
-                <Typography variant="h5"  component="div">
-                <div className='sub-text-container'>
-                  <h5 className='sub-text-description' ><div className='sub-text-title'>When</div></h5>
-                  <p className='sub-text-description' >{eventObj.hour}:{eventObj.minute} {eventObj.month}/{eventObj.day}/{eventObj.year} </p>
-                  </div>
-                </Typography>
-              </CardContent>
-            </Card>
-          )
-          
-        })}
-      
-    </div>
-    </>
-  )
+  if(localStorage.getItem('eventsHubInfo') !== null) {
+    return (
+      <>
+        {JSON.parse(localStorage.getItem('eventsHubInfo')).host
+          ? <HostNavbar />
+          : <UserNavbar />
+        }
+        <div className='events-container'>
+          <div className='events-title'><h1>My Events</h1></div>
+          {eventsList.map((eventObj, index) => {
+            return (
+              <Card key={index} className='card-container' sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography className='card-title-and-delete' sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    <h1>{eventObj.title}</h1> <Button style={{width:'5px',height:'20px', color:'grey' }}color="inherit" variant="contained" onClick={() => deleteEventClick(eventObj.id)}>Delete</Button>
+                  </Typography>
+                  <Typography variant="h5"  component="div">
+                  <div className='sub-text-container'>
+                    <h5 className='sub-text-description' ><div className='sub-text-title'>What</div></h5>
+                    <p className='sub-text-description' > {eventObj.description}</p>
+                    </div>
+                  </Typography>
+                  <Typography variant="h5"  component="div">
+                  <div className='sub-text-container'>
+                    <h5 className='sub-text-description' ><div className='sub-text-title'>Where</div></h5>
+                    <p className='sub-text-description' > {eventObj.latitude.toFixed(2)}, {eventObj.longitude.toFixed(2)}, {eventObj.city}</p>
+                    </div>
+                  </Typography>
+                  <Typography variant="h5"  component="div">
+                  <div className='sub-text-container'>
+                    <h5 className='sub-text-description' ><div className='sub-text-title'>When</div></h5>
+                    <p className='sub-text-description' >{eventObj.hour}:{eventObj.minute} {eventObj.month}/{eventObj.day}/{eventObj.year} </p>
+                    </div>
+                  </Typography>
+                </CardContent>
+              </Card>
+            )
+            
+          })}
+        
+      </div>
+      </>
+    )
+  }
 }

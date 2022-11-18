@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PublicNavbar from '../layout/navbars/PublicNavbar';
 
 const theme = createTheme();
 
@@ -21,10 +22,10 @@ export default function SignIn() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    
-    if(localStorage.getItem('signedIn') === 'true' && localStorage.getItem('username') !== null && localStorage.getItem('host') !== null) {
+
+    if(localStorage.getItem('eventsHubInfo') != null) {
       navigate('/searchevents')
-    } 
+    }
 
   }, [])
 
@@ -46,10 +47,8 @@ export default function SignIn() {
     .then((data) => {
       console.log(data);
 
-      if(data.signedIn === 'true') {
-        localStorage.setItem('username', data.username)
-        localStorage.setItem('host', data.host)
-        localStorage.setItem('signedIn', data.signedIn)
+      if(data.signedIn === true) {
+        localStorage.setItem('eventsHubInfo', JSON.stringify({username: data.username, host: data.host, signedIn: data.signedIn, id: data.id}))
 
         navigate('/searchevents')
 
@@ -62,69 +61,74 @@ export default function SignIn() {
     })
 };
 
-  if(localStorage.getItem('signedIn') === 'false' || localStorage.getItem('username') === null || localStorage.getItem('host') === null) {
+  if(localStorage.getItem('eventsHubInfo') === null ) {
     return (
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              {/* Modify the id, name, and autoComplete to relate to our project */}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
+      <>  
+        <PublicNavbar />
+
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                {/* Modify the id, name, and autoComplete to relate to our project */}
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                  </Grid>
+                  <Grid item>
+                    <Link href="#" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
+          </Container>
+        </ThemeProvider>
+      </>
     );
   }
+  
 }

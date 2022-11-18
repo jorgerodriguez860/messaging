@@ -20,9 +20,9 @@ import MyProfile from '../pages/MyProfile';
 function App() {
   return (
     <>
-      <PublicNavbar />
+      {/* <PublicNavbar />
       <HostNavbar />
-      <UserNavbar />
+      <UserNavbar /> */}
 
       <div className="container">
         <Routes>

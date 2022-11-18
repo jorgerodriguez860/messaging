@@ -35,6 +35,10 @@ function UserNavbar() {
     setAnchorElUser(null);
   };
 
+  const logUserOut = () => {
+    localStorage.removeItem('eventsHubInfo')
+  }
+
   return (
     <AppBar style={{background: 'black'}} position="static">
       <Container maxWidth="xl">
@@ -113,7 +117,7 @@ function UserNavbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={JSON.parse(localStorage.getItem('eventsHubInfo')).username} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -132,13 +136,17 @@ function UserNavbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration: "none", color: "black"}} to={`/${setting}`}>{setting}</Link>
+                    <Link style={{textDecoration: "none", color: "black"}} to={`/myprofile`}>My Profile</Link>
                   </Typography>
-                </MenuItem>
-              ))}
+              </MenuItem>
+
+              <MenuItem onClick={logUserOut}>
+                  <Typography textAlign="center">
+                    <Link style={{textDecoration: "none", color: "black"}} to={`/signin`}>Sign Out</Link>
+                  </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
