@@ -56,6 +56,8 @@ function UserNavbar() {
                 letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
+                fontFamily: "Titillium Web, sans-serif"
+
               }}
             >
               EVENTS HUB
@@ -95,7 +97,7 @@ function UserNavbar() {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>{page}</Link>
+                    <Link style={{textDecoration: "none", color: "white", fontFamily: "Titillium Web, sans-serif" }} to={`/${page}`}>{page}</Link>
                   </Typography>
                 </MenuItem>
               ))}

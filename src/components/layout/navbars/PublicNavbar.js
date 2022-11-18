@@ -41,6 +41,8 @@ function PublicNavbar() {
                 letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
+                fontFamily: "Titillium Web, sans-serif"
+
               }}
             >
               EVENTS HUB
