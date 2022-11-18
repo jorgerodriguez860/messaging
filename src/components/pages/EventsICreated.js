@@ -29,7 +29,7 @@ export default function EventsICreated() {
     
     const apiCall = async () => {
 
-      await fetch(`/eventsicreated?user=${JSON.parse(localStorage.getItem('eventsHubInfo')).username}`)
+      await fetch(`/eventsicreated?user=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -37,7 +37,7 @@ export default function EventsICreated() {
       })
     }
 
-    if(localStorage.getItem('eventsHubInfo') === null || JSON.parse(localStorage.getItem('eventsHubInfo')).host === false) {
+    if(sessionStorage.getItem('eventsHubInfo') === null || JSON.parse(sessionStorage.getItem('eventsHubInfo')).host === false) {
       navigate('/signin')
     }
     else {
@@ -57,7 +57,7 @@ export default function EventsICreated() {
     setDeleteEvent(deleteEvent+1)
   }
   
-  if(localStorage.getItem('eventsHubInfo') !== null && JSON.parse(localStorage.getItem('eventsHubInfo')).host === true) {
+  if(sessionStorage.getItem('eventsHubInfo') !== null && JSON.parse(sessionStorage.getItem('eventsHubInfo')).host === true) {
 
     return (
       <>

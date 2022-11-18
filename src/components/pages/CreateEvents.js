@@ -36,7 +36,7 @@ export default function CreateEvent() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('eventsHubInfo') === null || JSON.parse(localStorage.getItem('eventsHubInfo')).host === false) {
+    if(sessionStorage.getItem('eventsHubInfo') === null || JSON.parse(sessionStorage.getItem('eventsHubInfo')).host === false) {
       navigate('/signin')
     } 
 
@@ -80,7 +80,7 @@ export default function CreateEvent() {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({year: date.$y, month: date.$M+1, day: date.$D, hour: date.$H, minute: date.$m, type: eventType, title: title, description: description, city: city, latitude: marker.lat, longitude: marker.lng, user_id: JSON.parse(localStorage.getItem('eventsHubInfo')).username})
+        body: JSON.stringify({year: date.$y, month: date.$M+1, day: date.$D, hour: date.$H, minute: date.$m, type: eventType, title: title, description: description, city: city, latitude: marker.lat, longitude: marker.lng, user_id: JSON.parse(sessionStorage.getItem('eventsHubInfo')).username})
       })
       .then((response) => response.json())
       .then((data) => {
@@ -97,7 +97,7 @@ export default function CreateEvent() {
     
   }
   
-  if(localStorage.getItem('eventsHubInfo') !== null && JSON.parse(localStorage.getItem('eventsHubInfo')).host === true){
+  if(sessionStorage.getItem('eventsHubInfo') !== null && JSON.parse(sessionStorage.getItem('eventsHubInfo')).host === true){
 
     return (
       <>

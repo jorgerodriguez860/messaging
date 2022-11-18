@@ -30,7 +30,7 @@ function SearchEvents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('eventsHubInfo') == null) {
+    if(sessionStorage.getItem('eventsHubInfo') == null) {
       navigate('/signin')
     }
 
@@ -56,7 +56,7 @@ function SearchEvents() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({event_id: String(selectedMarker.id), user_id: JSON.parse(localStorage.getItem('eventsHubInfo')).username})
+      body: JSON.stringify({event_id: String(selectedMarker.id), user_id: JSON.parse(sessionStorage.getItem('eventsHubInfo')).username})
     })
     .then((response) => response.json())
     .then((data) => {
@@ -75,12 +75,12 @@ function SearchEvents() {
 
   }
 
-  if(localStorage.getItem('eventsHubInfo') != null){
+  if(sessionStorage.getItem('eventsHubInfo') != null){
 
     return (
 
       <>
-        {JSON.parse(localStorage.getItem('eventsHubInfo')).host
+        {JSON.parse(sessionStorage.getItem('eventsHubInfo')).host
         ? <HostNavbar />
         : <UserNavbar />
         }
