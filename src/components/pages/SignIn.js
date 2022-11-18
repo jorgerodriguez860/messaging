@@ -23,7 +23,7 @@ export default function SignIn() {
   
   useEffect(() => {
 
-    if(localStorage.getItem('eventsHubInfo') != null) {
+    if(sessionStorage.getItem('eventsHubInfo') != null) {
       navigate('/searchevents')
     }
 
@@ -48,7 +48,7 @@ export default function SignIn() {
       console.log(data);
 
       if(data.signedIn === true) {
-        localStorage.setItem('eventsHubInfo', JSON.stringify({username: data.username, host: data.host, signedIn: data.signedIn, id: data.id}))
+        sessionStorage.setItem('eventsHubInfo', JSON.stringify({username: data.username, host: data.host, signedIn: data.signedIn, id: data.id}))
 
         navigate('/searchevents')
 
@@ -61,7 +61,7 @@ export default function SignIn() {
     })
 };
 
-  if(localStorage.getItem('eventsHubInfo') === null ) {
+  if(sessionStorage.getItem('eventsHubInfo') === null ) {
     return (
       <>  
         <PublicNavbar />

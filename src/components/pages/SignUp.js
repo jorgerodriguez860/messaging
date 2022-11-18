@@ -32,7 +32,7 @@ export default function SignUp() {
 
   useEffect(() => {
 
-    if(localStorage.getItem('eventsHubInfo') != null) {
+    if(sessionStorage.getItem('eventsHubInfo') != null) {
       navigate('/searchevents')
     }
 
@@ -88,7 +88,7 @@ export default function SignUp() {
     });
   };
 
-  if(localStorage.getItem('eventsHubInfo') === null ) {
+  if(sessionStorage.getItem('eventsHubInfo') === null ) {
     return (
       <>
       <PublicNavbar />
