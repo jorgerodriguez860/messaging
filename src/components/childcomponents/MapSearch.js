@@ -21,7 +21,7 @@ function MapSearch({setEventsList, city, setCity}) {
     useEffect(() => {
 
 
-      console.log(date)
+      // console.log(date)
 
       const apiCall = async() => {
 
@@ -29,7 +29,7 @@ function MapSearch({setEventsList, city, setCity}) {
         .then((response) => response.json())
         .then((data) => {
             setEventsList(data)
-            console.log(data)
+            // console.log(data)
         })
       }
 

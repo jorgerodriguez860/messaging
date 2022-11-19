@@ -9,6 +9,8 @@ import Container from '@mui/material/Container';
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import ParticipantsDialog from '../childComponents/ParticipantsDialog';
+
 //import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -24,6 +26,8 @@ export default function MyEvents() {
   const[eventsList, setEventsList] = useState([])
   const[deleteEvent, setDeleteEvent] = useState(1)
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState('');
 
   useEffect(() => {
     
@@ -32,7 +36,7 @@ export default function MyEvents() {
       await fetch(`/myevents?user_id=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         setEventsList(data)
       })
     }
@@ -45,7 +49,7 @@ export default function MyEvents() {
     }
     
 
-  }, [deleteEvent])
+  }, [deleteEvent, open])
 
   const deleteEventClick = async (event_id) => {
     await fetch(`/deletejoinedevent/${event_id}/${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`, {
@@ -53,10 +57,16 @@ export default function MyEvents() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('data: ',data);
+      // console.log('data: ',data);
     })
     setDeleteEvent(deleteEvent+1)
   }
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId(id)
+    // console.log('opened')
+  };
   
   if(sessionStorage.getItem('eventsHubInfo') !== null) {
     return (
@@ -73,7 +83,7 @@ export default function MyEvents() {
               return (
                 <Card key={index} className='card-container' >
                   <CardContent>
-                    <Typography className='card-title-and-delete' sx={{ fontSize: 11 }} color="text.secondary" gutterBottom>
+                    <Typography component={'span'} className='card-title-and-delete' sx={{ fontSize: 11 }} color="text.secondary" gutterBottom>
                       <h1>{eventObj.title}</h1> <Button style={{width:'5px',height:'20px', color:'grey' }}color="inherit" variant="contained" onClick={() => deleteEventClick(eventObj.id)}>Delete</Button>
                     </Typography>
                     <Typography variant="h5"  component="div">
@@ -100,11 +110,17 @@ export default function MyEvents() {
                       <p className='sub-text-description' >{eventObj.user_id}</p>
                       </div>
                     </Typography>
+                    <div className='participantButton'>
+                        <Button style={{height:20, color: 'grey'}} color="inherit" variant="contained" onClick={() => handleClickOpen(eventObj.id)}>Participants</Button>
+                    </div>
                   </CardContent>
                 </Card>
               )
               
             })}
+
+            <ParticipantsDialog open={open} selectedMarker={id} setOpen={setOpen}/>
+
           </div>
           
         
