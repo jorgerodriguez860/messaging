@@ -1,0 +1,157 @@
+
+
+
+.main-container{
+    display: flex;
+}
+.blue-background-image{
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;  
+} 
+.navbar{
+    width: 100vw;
+    position: relative;
+    z-index: 1;
+}
+
+@media screen and (max-width: 700px) {
+    .footer-container{
+        position: relative;
+        width: 100%;
+        text-align: center;
+        background-color: black;
+        color: black;
+    }
+}
+@media screen and (min-width: 700px) {
+    .footer-container{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.signup-message{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    position: relative;
+    text-shadow: 2px 2px #4d7092;
+    font-size: larger;
+    margin-right: 10px;
+    margin-top: 100px;
+    margin-bottom: 60px;
+}
+
+.card-container{
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+
+.card{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    box-shadow: 10px 10px 25px rgb(10, 31, 90);
+    margin: 10px;
+    border-radius: 25px;
+    background-color: whitesmoke;
+}
+.card-image{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-top-left-radius: 25px; 
+    border-top-right-radius: 25px;
+}
+
+.card-text{
+    position: relative;
+    text-align: center;
+    font-size: large;
+    font-weight:bolder;
+}
+
+.footer-text-container{
+    margin: 0 auto;
+    font-size: x-small;
+    color: #4d7092;
+    display: flex;
+    flex-flow: row;
+}
+.footer-text{
+    margin-top: -15px;
+    padding-right: 10px;
+    font-size: x-small;
+    color: #4d7092;
+    text-decoration: none;
+}
+.footer{
+    height:35px;
+    color: black;
+    background-color: black;
+}
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.footer{
+    bottom: 1px;
+    height: 35px;
+    color: black;
+    background-color: black;
+}
+.footer-text{
+    padding-bottom: 2px;
+    font-size: small;
+    text-decoration: none;
+    color: rgb(69, 65, 65);
+}
+.footer-text-container{
+    margin-bottom: 10px;
+    margin-top: 10px; 
+
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+*/
+
+
+
+
+
