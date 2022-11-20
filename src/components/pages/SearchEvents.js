@@ -10,6 +10,9 @@ import EventsList from '../childComponents/EventsList';
 import '../../css/SearchEvents.css'
 import HostNavbar from '../layout/navbars/HostNavbar';
 import UserNavbar from '../layout/navbars/UserNavbar';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 
 
 let coordinates = {
@@ -18,21 +21,36 @@ let coordinates = {
   'Atlanta': [[-84.582367, 33.636082], [-84.119568, 33.945897]]
 }
 
+let markerCoordinates = {
+  'Nashville': {lat: 36.16, lng: -86.78},
+  'Richmond': {lat: 37.536919, lng: -77.434132},
+  'Atlanta': {lat: 33.766452, lng: -84.397659}
+}
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 function SearchEvents() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState({})
   const [eventsList, setEventsList] = useState([])
-  const [city, setCity] = useState('Nashville');
+  const [city, setCity] = useState('Atlanta');
   const [open, setOpen] = useState(false);
-  
-
+  const [openMessage, setOpenMessage] = useState(false)
+  const [message, setMessage] = useState('')
+  const [color, setColor] = useState('')
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(sessionStorage.getItem('eventsHubInfo') == null) {
+    if(sessionStorage.getItem('eventsHubInfo') === null) {
       navigate('/signin')
     }
+
+    if(sessionStorage.getItem('eventsHubInfo') !== null) {
+      setCity(JSON.parse(sessionStorage.getItem('eventsHubInfo')).city)
+    } 
 
   }, [])
   
@@ -48,6 +66,14 @@ function SearchEvents() {
     setOpen(true);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenMessage(false);
+  };
+
   const handleAddEvent = async () => {
         
     await fetch('/addparticipant', {
@@ -60,16 +86,25 @@ function SearchEvents() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('data: ',data);
+      // console.log('data: ',data);
 
-      if(data.status == 'added') {
-        alert("Event Added")
+      if(data.status === 'added') {
+        // alert("Event Added")
+        setColor('success')
+        setMessage('Event Added!')
+        setOpenMessage(true)
       }
-      else if(data.status == 'exists') {
-        alert("Event Already Added")
+      else if(data.status === 'exists') {
+        // alert("Event Already Added")
+        setColor('error')
+        setMessage('Event Already Added!')
+        setOpenMessage(true)
       }
-      else if(data.status == 'not added') {
-        alert("Event Not Added")
+      else if(data.status === 'not added') {
+        // alert("Event Not Added")
+        setColor('error')
+        setMessage('Event Not Added!')
+        setOpenMessage(true)
       }
     })
 
@@ -84,17 +119,18 @@ function SearchEvents() {
         ? <HostNavbar />
         : <UserNavbar />
         }
+        <div className='events-title'><h1>Search Events</h1></div>
         <MapSearch setEventsList={setEventsList} city={city} setCity={setCity} />
 
         <MoreInfoDialog open={open} selectedMarker={selectedMarker} setOpen={setOpen}/>
 
         <div className='mapListFlex'>
           <div>
-            <Map
+            <Map id='searchMapStyling'
               reuseMaps={true}
               initialViewState={{
-                longitude: -86.7816016,
-                latitude: 36.1626638,
+                longitude: markerCoordinates[city].lng,
+                latitude: markerCoordinates[city].lat,
                 zoom: 0
               }}
               mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
@@ -106,7 +142,7 @@ function SearchEvents() {
                 {eventsList.map((eventObj) => {
                       return (
                         <Marker key={eventObj.id} longitude={eventObj.longitude} latitude={eventObj.latitude} anchor="bottom" onClick={(e) => openPopUp(e, eventObj)}>
-                            <img src={mapPin} height='30px'/>
+                            <img src={mapPin} height='30px' alt='map pin'/>
                         </Marker>
                       ) 
                     })}
@@ -132,8 +168,12 @@ function SearchEvents() {
           <div>
             <EventsList eventsList={eventsList} setSelectedMarker={setSelectedMarker} setShowPopup={setShowPopup} />
           </div>
-          
         </div>
+        <Snackbar open={openMessage} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={color} sx={{ width: '100%' }}>
+            {message}
+          </Alert>
+        </Snackbar>
       </>
       
     )

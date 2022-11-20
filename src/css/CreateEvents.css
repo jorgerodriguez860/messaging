@@ -17,3 +17,126 @@
 .submitButtonContainer {
     margin-top: 20px;
 }
+
+.events-title{
+    display: flex;
+    justify-content:center;
+    margin-top: 20px; 
+}
+
+.event-title-text {
+    width: 100%;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pageContainer {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    flex-wrap: wrap;
+
+}
+
+.mapContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(1);
+    
+}
+
+
+
+#createMapStyling {
+    height: 750px !important;
+    width: 800px !important;
+
+}
+
+@media screen and (max-width: 705px) {
+    #createMapStyling {
+        height: 400px !important;
+        width: 300px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .pageContainer {
+        display: inline;
+        padding: 0px;
+
+    }
+    
+}
+
+@media screen and (min-width: 705px) and (max-width: 805px) {
+    #createMapStyling {
+        height: 350px !important;
+        width: 350px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 805px) and (max-width: 941px) {
+    #createMapStyling {
+        height: 450px !important;
+        width: 450px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 941px) and (max-width: 1136px) {
+    #createMapStyling {
+        height: 400px !important;
+        width: 400px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 1136px) and (max-width: 1383px) {
+    #createMapStyling {
+        height: 450px !important;
+        width: 450px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 1383px) and (max-width: 1600px) {
+    #createMapStyling {
+        height: 550px !important;
+        width: 550px !important;
+    }
+}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-
+import '../../css/EventsList.css'
 
 
 function EventsList({eventsList, setSelectedMarker, setShowPopup}) {
@@ -17,7 +17,7 @@ function EventsList({eventsList, setSelectedMarker, setShowPopup}) {
     }
     
     const columns = [
-      { field: 'Title', width: 250 },
+      { field: 'Title', width: 200 },
     //   { field: 'Host', width: 150},
       {
         field: "Find",
@@ -30,7 +30,7 @@ function EventsList({eventsList, setSelectedMarker, setShowPopup}) {
                 handleClick(event, cellValues);
               }}
             >
-              Find on Map
+              Find
             </Button>
           );
         },
@@ -45,7 +45,7 @@ function EventsList({eventsList, setSelectedMarker, setShowPopup}) {
     })
 
     return (
-        <div style={{ height: 600, width: 400 }}>
+        <div className='eventsList'>
           <DataGrid
             rows={events}
             columns={columns}

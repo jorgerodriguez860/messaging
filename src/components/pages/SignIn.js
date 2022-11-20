@@ -45,10 +45,10 @@ export default function SignIn() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
 
       if(data.signedIn === true) {
-        sessionStorage.setItem('eventsHubInfo', JSON.stringify({username: data.username, host: data.host, signedIn: data.signedIn, id: data.id}))
+        sessionStorage.setItem('eventsHubInfo', JSON.stringify({username: data.username, host: data.host, signedIn: data.signedIn, id: data.id, city: data.city}))
 
         navigate('/searchevents')
 

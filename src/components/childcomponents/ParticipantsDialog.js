@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function MoreInfoDialog({open, selectedMarker, setOpen}) {
+function ParticipantsDialog({open, selectedMarker, setOpen}) {
 
     const [participantList, setParticipantList] = useState([])
 
@@ -22,10 +22,11 @@ function MoreInfoDialog({open, selectedMarker, setOpen}) {
     //UseEffect Hook
     useEffect(() => {
         // console.log('useeffect')
+        // console.log('hi:',selectedMarker)
   
         const apiCall = async() => {
   
-          await fetch(`/eventparticipants?event_id=${selectedMarker.id}`)
+          await fetch(`/eventparticipants?event_id=${selectedMarker}`)
           .then((response) => response.json())
           .then((data) => {
               setParticipantList(data)
@@ -48,14 +49,9 @@ function MoreInfoDialog({open, selectedMarker, setOpen}) {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle component={'span'}><h1>{selectedMarker.title}</h1></DialogTitle>
+            <DialogTitle component={'span'}><h1>Participants</h1></DialogTitle>
             <DialogContent>
-            <DialogContentText component={'span'} variant={'body2'} id="alert-dialog-slide-description">
-                <h2>Description:</h2>
-                <h3>{selectedMarker.description}</h3>
-                
-
-                <h2>Participants:</h2>
+            <DialogContentText component={'span'} id="alert-dialog-slide-description">
                 <ul>
                     {participantList.map((participantObj, index) => {
                         return <li key={index}>{participantObj.user_id}</li>
@@ -71,4 +67,4 @@ function MoreInfoDialog({open, selectedMarker, setOpen}) {
     )
 }
 
-export default MoreInfoDialog
+export default ParticipantsDialog
