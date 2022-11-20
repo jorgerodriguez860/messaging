@@ -1,0 +1,62 @@
+.eventsList {
+    height: 750px;
+    width: 330px;
+}
+
+
+@media screen and (max-width: 705px) {
+    .eventsList {
+        height: 400px;
+        width: 300px;
+        /* background-color: blue; */
+        border-top: 2px solid black;
+    }
+    
+    
+}
+
+@media screen and (min-width: 705px) and (max-width: 805px) {
+    .eventsList {
+        height: 450px;
+        width: 450px;
+        /* background-color: yellow; */
+        border-top: 2px solid black;
+    }
+    
+}
+
+@media screen and (min-width: 805px) and (max-width: 941px) {
+    .eventsList {
+        height: 450px;
+        /* background-color: red; */
+        border-left: 2px solid black;
+
+
+    }
+}
+
+@media screen and (min-width: 941px) and (max-width: 1136px) {
+    .eventsList {
+        height: 500px;
+        /* background-color: purple; */
+        border-left: 2px solid black;
+
+    }
+}
+
+@media screen and (min-width: 1136px) and (max-width: 1600px) {
+    .eventsList {
+        height: 650px;
+        /* background-color: lawngreen; */
+        border-left: 2px solid black;
+
+    }
+}
+
+@media screen and (min-width: 1136px) {
+    .eventsList {
+        border-left: 2px solid black;
+        /* background-color: lawngreen; */
+
+    }
+}

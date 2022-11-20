@@ -1,5 +1,87 @@
 .mapListFlex {
     display: flex;
     margin-bottom: 50px;
+    border: 2px solid black;
     /* width: 90%; */
 }
+
+
+#searchMapStyling {
+    height: 750px !important;
+    width: 800px !important;
+
+}
+
+@media screen and (max-width: 705px) {
+    #searchMapStyling {
+        height: 400px !important;
+        width: 300px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .pageContainer {
+        display: inline;
+        padding: 0px;
+
+    }
+    .mapListFlex {
+        display: inline;
+    }
+    
+}
+
+@media screen and (min-width: 705px) and (max-width: 805px) {
+    #searchMapStyling {
+        height: 450px !important;
+        width: 450px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .mapListFlex {
+        display: inline;
+    }
+    
+}
+
+@media screen and (min-width: 805px) and (max-width: 941px) {
+    #searchMapStyling {
+        height: 450px !important;
+        width: 450px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 941px) and (max-width: 1136px) {
+    #searchMapStyling {
+        height: 500px !important;
+        width: 500px !important;
+    }
+    .inputGrid {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 1136px) and (max-width: 1600px) {
+    #searchMapStyling {
+        height: 650px !important;
+        width: 650px !important;
+    }
+}
+
