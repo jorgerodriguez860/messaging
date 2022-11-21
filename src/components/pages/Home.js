@@ -9,7 +9,8 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 
-import HostNavbar from '../layout/navbars/HostNavbar'
+// import HostNavbar from '../layout/navbars/HostNavbar'
+import PublicNavbar from '../layout/navbars/PublicNavbar'
 
 
 const StyledFab = styled(Fab)({
@@ -25,9 +26,9 @@ const StyledFab = styled(Fab)({
 const Home = () => {
   return (
     <>
-    <div className='navbar'><HostNavbar /></div> 
-        <div class="backGround-image-container">
-        <img class="blue-background-image" src={backGroundimage} alt="blue-background"/>
+    <div className='navbar'><PublicNavbar /></div> 
+        <div className="backGround-image-container">
+        <img className="blue-background-image" src={backGroundimage} alt="blue-background"/>
         </div>
     <div>
         <div className='signup-message'>
@@ -38,21 +39,21 @@ const Home = () => {
 
         <div className='my-card'>
           <img  className='card-image' src={restaurantImage} alt="restaurantImage"/>
-          <div class="w3-container w3-center">
+          <div className="w3-container w3-center">
             <p className='card-text'>Plan your next night out.</p>
           </div>
         </div>
 
         <div className='my-card'>
           <img  className='card-image' src={bussinessImage} alt="bussinessImage"/>
-          <div class="w3-container w3-center">
+          <div className="w3-container w3-center">
             <p className='card-text'>Plan your next corporate meeting.</p>
           </div>
         </div>
 
         <div className='my-card'>
           <img  className='card-image' src={partyImage} alt="partyImage"/>
-          <div class="w3-container w3-center">
+          <div className="w3-container w3-center">
             <p className='card-text'>Plan your next get together.</p>
           </div>
         </div>
