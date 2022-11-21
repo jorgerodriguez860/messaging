@@ -1,15 +1,20 @@
+
+
+
 .mapListFlex {
     display: flex;
     margin-bottom: 50px;
     border: 2px solid black;
+    box-shadow: 10px 10px 40px rgb(24, 23, 23);
     /* width: 90%; */
 }
-
+.events-title{
+    text-shadow: 2px 2px 5px rgb(158, 158, 158);
+}
 
 #searchMapStyling {
     height: 750px !important;
     width: 800px !important;
-
 }
 
 @media screen and (max-width: 705px) {
@@ -26,12 +31,10 @@
     .pageContainer {
         display: inline;
         padding: 0px;
-
     }
     .mapListFlex {
         display: inline;
     }
-    
 }
 
 @media screen and (min-width: 705px) and (max-width: 805px) {
@@ -48,7 +51,6 @@
     .mapListFlex {
         display: inline;
     }
-    
 }
 
 @media screen and (min-width: 805px) and (max-width: 941px) {
@@ -62,7 +64,6 @@
         margin-top: 20px;
         margin-bottom: 10px;
     }
-    
 }
 
 @media screen and (min-width: 941px) and (max-width: 1136px) {
