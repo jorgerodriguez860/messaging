@@ -14,8 +14,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 
 const pages = ['searchevents', "myevents", 'createevents', 'eventsicreated'];
+const pagesText = ['search events', "my events", 'create events', 'events i created'];
+
 
 function HostNavbar() {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,8 +41,10 @@ function HostNavbar() {
     sessionStorage.removeItem('eventsHubInfo')
   }
 
+
+
   return (
-    <AppBar style={{background: 'black'}} position="static">
+    <AppBar style={{background: 'black',}} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link style={{textDecoration: "none", color: "white"}} to="/">
@@ -93,10 +98,14 @@ function HostNavbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page,index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>{page}</Link>
+                    <Link style={{textDecoration: "none", color: "black"}}
+                     to={`/${page}`}
+                     >
+                      {pagesText[index]}
+                      </Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -104,13 +113,16 @@ function HostNavbar() {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page,index) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}>{page}</Link>
+                <Link style={{textDecoration: "none", color: "white"}} to={`/${page}`}
+                >
+                   {pagesText[index]}
+                  </Link>
               </Button>
             ))}
           </Box>

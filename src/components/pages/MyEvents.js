@@ -82,7 +82,7 @@ export default function MyEvents() {
             {eventsList.map((eventObj, index) => {
               return (
                 <Card key={index} className='card-container' >
-                  <CardContent>
+                  <CardContent className='shadowText'>
                     <Typography component={'span'} className='card-title-and-delete' sx={{ fontSize: 11 }} color="text.secondary" gutterBottom>
                       <h1>{eventObj.title}</h1> <Button style={{width:'5px',height:'20px', color:'grey' }}color="inherit" variant="contained" onClick={() => deleteEventClick(eventObj.id)}>Delete</Button>
                     </Typography>
