@@ -1,5 +1,5 @@
 // SignUp template provided by Material UI
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,15 +18,23 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-import { useState } from 'react';
+
 
 const theme = createTheme();
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function SignUp() {
 
   const [city, setCity] = useState('');
   const [host, setHost] = useState(false)
+  const [open, setOpen] = useState(false)
+
 
   const navigate = useNavigate();
 
@@ -50,13 +58,13 @@ export default function SignUp() {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
 
-    console.log({
-      Username: data.get('Username'),
-      password: data.get('password'),
-      FirstName: data.get('firstName'),
-      LastName: data.get('lastName'),
-      city: data.get('City'),
-    })
+    // console.log({
+    //   Username: data.get('Username'),
+    //   password: data.get('password'),
+    //   FirstName: data.get('firstName'),
+    //   LastName: data.get('lastName'),
+    //   city: data.get('City'),
+    // })
 
     if(city === null){
       setCity('Atlanta ')
@@ -75,17 +83,29 @@ export default function SignUp() {
       .then((data) => {
         console.log('data: ',data);
         if(data.created === true) {
-          alert("User Created")
+          // alert("User Created")
+          navigate('/signin')
+        }
+        else{
+          setOpen(true)
         }
       })
     }
-    console.log({
-      Username: data.get('Username'),
-      password: data.get('password'),
-      FirstName: data.get('firstName'),
-      LastName: data.get('lastName'),
-      city: data.get('City'),
-    });
+    // console.log({
+    //   Username: data.get('Username'),
+    //   password: data.get('password'),
+    //   FirstName: data.get('firstName'),
+    //   LastName: data.get('lastName'),
+    //   city: data.get('City'),
+    // });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   };
 
   if(sessionStorage.getItem('eventsHubInfo') === null ) {
@@ -186,7 +206,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signin" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
@@ -195,6 +215,11 @@ export default function SignUp() {
           </Box>
         </Container>
       </ThemeProvider>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={'error'} sx={{ width: '100%' }}>
+          User Not Created. Choose Another Username or Fill Out The Whole Form.
+        </Alert>
+      </Snackbar>
 
       </>
     );

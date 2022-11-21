@@ -176,6 +176,14 @@ export default function CreateEvent() {
                       <MenuItem value='Party'>Party</MenuItem>
                       <MenuItem value='Celebration'>Celebration</MenuItem>
                       <MenuItem value='Relaxation'>Relaxation</MenuItem>
+                      <MenuItem value='Conference'>Conference</MenuItem>
+                      <MenuItem value='Workshop'>Workshop</MenuItem>
+                      <MenuItem value='Festival'>Festival</MenuItem>
+                      <MenuItem value='Meetup'>Meetup</MenuItem>
+                      <MenuItem value='Contest'>Contest</MenuItem>
+                      <MenuItem value='Show'>Show</MenuItem>
+                      <MenuItem value='Other'>Other...</MenuItem>
+
                     </Select>
                   </FormControl>
                 </Box>
