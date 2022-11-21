@@ -32,7 +32,7 @@ const Home = () => {
         </div>
     <div>
         <div className='signup-message'>
-            <h1>Plan your next event with us <Button variant="contained">Sign up now</Button> </h1>
+            <h1>Plan your next event with us <Button variant="contained" href="/signup">Sign up now</Button></h1>
         </div>
 
       <div className='card-container-holder'>
