@@ -2,7 +2,7 @@
   "name": "messaging",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3005",
+  "proxy": "https://events-hub-db.herokuapp.com",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -17,6 +17,7 @@
     "dayjs": "^1.11.6",
     "mapbox-gl": "^2.11.0",
     "moment": "^2.29.4",
+    "netlify-cli": "^12.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.0.19",
