@@ -76,7 +76,7 @@ function SearchEvents() {
 
   const handleAddEvent = async () => {
         
-    await fetch('/addparticipant', {
+    await fetch('https://events-hub-db.herokuapp.com/addparticipant', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

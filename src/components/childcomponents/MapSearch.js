@@ -25,7 +25,7 @@ function MapSearch({setEventsList, city, setCity}) {
 
       const apiCall = async() => {
 
-        await fetch(`/mapevents?city=${city}&year=${date.$y}&month=${date.$M+1}&day=${date.$D}`)
+        await fetch(`https://events-hub-db.herokuapp.com/mapevents?city=${city}&year=${date.$y}&month=${date.$M+1}&day=${date.$D}`)
         .then((response) => response.json())
         .then((data) => {
             setEventsList(data)

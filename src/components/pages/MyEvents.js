@@ -33,7 +33,7 @@ export default function MyEvents() {
     
     const apiCall = async () => {
 
-      await fetch(`/myevents?user_id=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
+      await fetch(`https://events-hub-db.herokuapp.com/myevents?user_id=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
@@ -52,7 +52,7 @@ export default function MyEvents() {
   }, [deleteEvent, open])
 
   const deleteEventClick = async (event_id) => {
-    await fetch(`/deletejoinedevent/${event_id}/${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`, {
+    await fetch(`https://events-hub-db.herokuapp.com/deletejoinedevent/${event_id}/${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`, {
       method: 'DELETE',
     })
     .then((response) => response.json())

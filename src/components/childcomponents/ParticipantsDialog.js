@@ -26,7 +26,7 @@ function ParticipantsDialog({open, selectedMarker, setOpen}) {
   
         const apiCall = async() => {
   
-          await fetch(`/eventparticipants?event_id=${selectedMarker}`)
+          await fetch(`https://events-hub-db.herokuapp.com/eventparticipants?event_id=${selectedMarker}`)
           .then((response) => response.json())
           .then((data) => {
               setParticipantList(data)
