@@ -33,7 +33,7 @@ export default function EventsICreated() {
     
     const apiCall = async () => {
 
-      await fetch(`/eventsicreated?user=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
+      await fetch(`https://events-hub-db.herokuapp.com/eventsicreated?user=${JSON.parse(sessionStorage.getItem('eventsHubInfo')).username}`)
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
@@ -51,7 +51,7 @@ export default function EventsICreated() {
   }, [deleteEvent, open])
 
   const deleteEventClick = async (id) => {
-    await fetch(`/deleteeventicreated/${id}`, {
+    await fetch(`https://events-hub-db.herokuapp.com/deleteeventicreated/${id}`, {
       method: 'DELETE',
     })
     .then((response) => response.json())

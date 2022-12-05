@@ -43,7 +43,7 @@ export default function SignIn() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    await fetch('/login', {
+    await fetch('https://events-hub-db.herokuapp.com/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

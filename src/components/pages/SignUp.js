@@ -70,7 +70,7 @@ export default function SignUp() {
       setCity('Atlanta ')
     }
     else{
-      await fetch('/createusers', {
+      await fetch('https://events-hub-db.herokuapp.com/createusers', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

@@ -93,7 +93,7 @@ export default function CreateEvent() {
       setOpen(true)
     }
     else {
-      await fetch('/createevent', {
+      await fetch('https://events-hub-db.herokuapp.com/createevent', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
